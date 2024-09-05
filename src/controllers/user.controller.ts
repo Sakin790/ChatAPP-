@@ -6,6 +6,10 @@ import express, { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 
 class userController {
+  static status = asyncHandler(async (req: Request, res: Response) => {
+    res.status(200).json(new ApiResponse(200, null, "EVERYTHING IS WORKING"));
+  });
+
   static register = asyncHandler(async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
     if ([name, email, password].some((field) => field?.trim() === "")) {
@@ -33,9 +37,9 @@ class userController {
         "Something went Wrong while registering the user"
       );
     }
-     return res
-       .status(201)
-       .json(new ApiResponse(200, newUser, "user registred successfully"));
+    return res
+      .status(201)
+      .json(new ApiResponse(200, newUser, "user registred successfully"));
   });
 }
 
